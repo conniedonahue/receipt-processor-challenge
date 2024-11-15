@@ -9,6 +9,6 @@ router.post(
   receiptController.validateReceipt,
   receiptController.createReceiptId
 );
-router.get("/:receiptId/points");
+router.get("/:receiptId/points", receiptController.getPointsById);
 
 export default router;

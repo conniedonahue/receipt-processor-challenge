@@ -161,7 +161,7 @@ receiptController.calculatePoints = async (receipt, uniqueId) => {
  * @param {Object} res - The response object to send the points or an error.
  *
  * @returns {Object} res.status(404) if no receipt is found for the given ID,
- * res.status(500) if there is an issue fetching from the database (NOTE: this is not in the 
+ * res.status(500) if there is an issue fetching from the database (NOTE: this is not in the
  * OpenAPI schema)
  * res.status(200) with the points if the receipt is found in the database.
  */
@@ -173,7 +173,7 @@ receiptController.getPointsById = async (req, res) => {
   try {
     const result = await receiptDatabase.get(receiptId);
     const points = result.points;
-    res.status(200).json(points);
+    res.status(200).json({ points: points });
   } catch (error) {
     console.error(`Error fetching receipt: ${error}`);
     res
