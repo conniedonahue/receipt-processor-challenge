@@ -4,11 +4,23 @@ import receiptRouter from "./routes/receiptRouter.js";
 const app = express();
 const port = 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+app.use("/receipts", receiptRouter);
+
+// Send all other requests to 404 Error
+app.use((req, res, next) => {
+  const error = new Error("Route not found");
+  error.status = 404;
+  next(error);
 });
 
-app.use("/receipts", receiptRouter);
+// Global error handler
+app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  res.status(status).json({
+    message: err.message || "Internal Server Error",
+    status: status,
+  });
+});
 
 app.listen(port, () => {
   console.log(`Listening on port: ${port}`);
