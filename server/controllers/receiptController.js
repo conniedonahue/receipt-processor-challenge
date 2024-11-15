@@ -69,6 +69,7 @@ receiptController.createReceiptId = (req, res) => {
 
 /**
  * Calculates and stores the points for the receipt based on below criteria.
+ * Uses Promises to concurrently calculate points.
  *
  * @param {Object} receipt - The receipt object containing the retailer, purchase date, time, total, and items.
  * @param {string} uniqueId - The unique ID assigned to the receipt.
