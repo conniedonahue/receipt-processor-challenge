@@ -7,7 +7,7 @@ To run this application in Docker, do the following:
 1. _Clone this repo:_ Grab the HTTPS URL from the main page of this repository and clicking the `<> Code` button. Open a Terminal and change the current working directory to where you'd like the cloned repository to be stored. Use following git command: `git clone <repository_HTTPS_URL>`.
 2. _Enter the directory in your terminal:_ `cd <your_repository_folder>`
 3. _Build the Docker image:_ `docker build -t node-receipt-processor .` Note: the -t flag sets the tag for the image, feel free to replace `node-receipt-processor` with a different tag.
-4. _Run the Container:_ After building the image, you can run your application with the following command: `docker run -p 3000:3000 my-node-app`. This maps port `3000` on your local machine to port `3000` inside the Docker container, which is the port your app will listen on. If you use a different port in your app, adjust the port mappings accordingly.
+4. _Run the Container:_ After building the image, you can run your application with the following command: `docker run -p 3000:3000 node-receipt-processor` [Edited on 11/25]. This maps port `3000` on your local machine to port `3000` inside the Docker container, which is the port your app will listen on. If you use a different port in your app, adjust the port mappings accordingly.
 5. _Test out the App:_ check out the POST and GET requests using Postman or by sending curl requests. Here is an example:
 
 ```
@@ -52,7 +52,7 @@ To run this server locally using Node, do the following:
 
 This receipt processor stores its ticket information in memory. I decided to store it in a Map, `receiptDatabase`, which could port nicely to a key-value database like DynamoDb. The receiptDatabase follows: KEY: `receiptId`, VALUE: `{points: <points>, receipt: <receipt>}`. The Map enables constant lookup by `receiptId`.
 
-I decided it might be wise to hold onto the receipt and store this in the database, although in a larger ecosystem this might be redundant and we could instead optimize this service to only store `receiptId`s and `points`. 
+I decided it might be wise to hold onto the receipt and store this in the database, although in a larger ecosystem this might be redundant and we could instead optimize this service to only store `receiptId`s and `points`.
 
 ### Backend
 
@@ -61,7 +61,6 @@ The backend is built in Node/Express.
 - Input validation: I decided to make the use a middleware pattern to validate the Receipts. With more time, I would have either created a Receipt class or used TypeScript.
 - The POST request generates a `receiptId` and then sends it back to the user while the backend continues to calculate the point totals with `calculatePoints`.
 - The `calculatePoints` could benefit with a bit more fault tolerance/retry capabilities.
-
 
 ## PROMPT: Receipt Processor
 
